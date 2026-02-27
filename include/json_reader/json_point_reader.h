@@ -6,10 +6,20 @@
 #include <QJsonValue>
 #include <string>
 
-#include "ijsor_reader.h"
-// #include "vec3D.h"
+#include "json_reader/jsor_reader.h"
 
-class JsonPointReader : IJsonPointReader {
+namespace trajectory::json {
+
+class PointReader : IPointReader {
+ public:
+  PointReader(const std::string& file_name);
+
+  Vec3D GetPointByIndex(std::size_t i) override;
+
+  Vec3D GetPointById(std::size_t id) override;
+
+  std::vector<Vec3D> GetPointsAsVector() override;
+ 
  private:
   void BuildToIndex_();
 
@@ -18,4 +28,7 @@ class JsonPointReader : IJsonPointReader {
   QJsonArray json_arr_;
   bool is_open_{false};
   QHash<std::size_t, std::size_t> id_to_index_;
+  
 };
+
+}

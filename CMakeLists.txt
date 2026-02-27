@@ -45,7 +45,7 @@ else()
     endif()
 endif()
 
-target_include_directories(TrajectoryProject PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(TrajectoryProject PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(TrajectoryProject PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 

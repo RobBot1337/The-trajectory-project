@@ -1,13 +1,13 @@
-#include "brute_force.h"
-
 #include <execution>
 #include <limits>
 #include <string>
 #include <vector>
 
-#include "json_reader/ijsor_reader.h"
+#include "algorithms/brute_force/brute_force.h"
 
-BruteForceAlgorithm::BruteForceAlgorithm(IJsonPointReader& json_reader)
+namespace trajectory::algorithm {
+
+BruteForce::BruteForce(IJsonPointReader& json_reader)
     : json_reader_{json_reader},
       points_{json_reader.GetPointsAsVector()},
       best_path_indices_{},
@@ -15,7 +15,7 @@ BruteForceAlgorithm::BruteForceAlgorithm(IJsonPointReader& json_reader)
   PrecomputeDistances_();
 }
 
-void BruteForceAlgorithm::CalculatePath(const std::string& path) {
+void BruteForce::CalculatePath(const std::string& path) {
   std::vector<std::size_t> indices(points_.size());
   for (std::size_t i = 0; i != points_.size(); ++i) {
     indices[i] = i;
@@ -46,7 +46,7 @@ void BruteForceAlgorithm::CalculatePath(const std::string& path) {
   }
 }
 
-void BruteForceAlgorithm::PrecomputeDistances_() {
+void BruteForce::PrecomputeDistances_() {
   size_t n = points_.size();
   distance_matrix_.resize(n, std::vector<double>(n, 0.0));
 
@@ -59,10 +59,12 @@ void BruteForceAlgorithm::PrecomputeDistances_() {
   }
 }
 
-double BruteForceAlgorithm::DistanceBetween_(const Vec3D& a,
+double BruteForce::DistanceBetween_(const Vec3D& a,
                                              const Vec3D& b) const {
   double dx = a.x - b.x;
   double dy = a.y - b.y;
   double dz = a.z - b.z;
   return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+
 }

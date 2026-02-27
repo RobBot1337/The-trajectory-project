@@ -6,11 +6,13 @@
 #include <string>
 #include <vector>
 
-#include "json_reader/ijsor_reader.h"
+#include "json_reader/jsor_reader.h"
 
-class BruteForceAlgorithm {
+namespace trajectory::algorithm {
+
+class BruteForce {
  public:
-  BruteForceAlgorithm(IJsonPointReader& json_reader);
+  BruteForce(IPointReader& json_reader);
 
   void CalculatePath(const std::string& path);
 
@@ -27,12 +29,14 @@ class BruteForceAlgorithm {
 
   double DistanceBetween_(const Vec3D& a, const Vec3D& b) const;
 
-  IJsonPointReader& json_reader_;
+  IPointReader& json_reader_;
   std::vector<Vec3D> points_;
   std::vector<std::vector<double>> distance_matrix_;
   std::vector<std::size_t> best_path_indices_;
   double best_distance_;
   bool closed_loop_ = true;
 };
+
+}
 
 #endif
