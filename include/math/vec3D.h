@@ -10,7 +10,7 @@ public:
     double z { 0.0 };
 
     Vec3D() = default;
-    Vec3D(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
+    Vec3D(double x_, double y_, double z_ = 0) : x(x_), y(y_), z(z_) {}
 
     Vec3D operator+(const Vec3D& other) const { return {x + other.x, y + other.y, z + other.z}; }
     Vec3D operator-(const Vec3D& other) const { return {x - other.x, y - other.y, z - other.z}; }

@@ -7,11 +7,16 @@
 
 #include <math/vec3D.h>
 
-struct BlockedAirCorridor {
+struct Point {
+  Vec3D vec;
+  std::size_t id {0};
+};
+
+struct AirCorridor {
   std::size_t id1{0};
   std::size_t id2{0};
 
-  bool operator==(const BlockedAirCorridor& other) const {
+  bool operator==(const AirCorridor& other) const {
     return (id1 == other.id1 && id2 == other.id2) ||
            (id1 == other.id2 && id2 == other.id1);
   }
@@ -28,16 +33,14 @@ struct HighReliefZone {
 };
 
 struct AirSpace {
-  QVector<Vec3D> points;
-  QSet<BlockedAirCorridor> air_corridors;
+  QVector<Point> points;
+  QSet<AirCorridor> air_corridors;
   QVector<Pvo> pvo_list;
   QVector<HighReliefZone> high_relief_zones;
 };
 
-inline unsigned int qHash(const BlockedAirCorridor& key, uint seed = 0) {
-  std::size_t id_a = std::min(key.id1, key.id2);
-  std::size_t id_b = std::max(key.id1, key.id2);
-  return qHash(std::make_pair(id_a, id_b), seed);
+inline uint qHash(const AirCorridor& corridor, uint seed = 0) {
+    return ::qHash(corridor.id1, seed) ^ ::qHash(corridor.id2, seed);
 }
 
 #endif

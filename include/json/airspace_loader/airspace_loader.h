@@ -13,13 +13,7 @@
 #include <QSet>
 
 #include "math/vec3D.h"
-
-struct AirSpace {
-  QVector<Vec3D> points;
-  QSet<BlockedAirCorridor> air_corridors;
-  QVector<Pvo> pvo_list;
-  QVector<HighReliefZone> high_relief_zones;
-};
+#include <air_space/air_space_data.h>
 
 class AirspaceLoader {
  public:
@@ -30,7 +24,5 @@ class AirspaceLoader {
  private:
   static AirSpace _ConstructAirspace(QJsonArray& arr);
 };
-
-#endif
 
 #endif

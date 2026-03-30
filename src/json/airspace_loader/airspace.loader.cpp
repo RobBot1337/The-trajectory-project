@@ -37,17 +37,18 @@ AirSpace AirspaceLoader::_ConstructAirspace(QJsonArray& arr) {
   QJsonArray pointsArray = arr[0].toArray();
   for (const auto& item : pointsArray) {
     QJsonObject obj = item.toObject();
-    Vec3D point;
-    point.x = obj["x"].toDouble();
-    point.y = obj["y"].toDouble();
-    point.z = 0;
+    Point point;
+    point.id = obj["id"].toInt();
+    point.vec.x = obj["x"].toDouble();
+    point.vec.y = obj["y"].toDouble();
+    point.vec.z = 0;
     result.points.append(point);
   }
 
   QJsonArray corridorsArray = arr[1].toArray();
   for (const auto& item : corridorsArray) {
     QJsonObject obj = item.toObject();
-    BlockedAirCorridor corridor;
+    AirCorridor corridor;
     corridor.id1 = obj["id1"].toInteger();
     corridor.id2 = obj["id2"].toInteger();
     result.air_corridors.insert(corridor);
